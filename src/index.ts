@@ -6,7 +6,7 @@ import { CalendarEvent } from './eventSchema';
 
 const rl = readline.createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
 });
 
 async function promptUser(question: string): Promise<string> {
@@ -18,33 +18,35 @@ async function promptUser(question: string): Promise<string> {
 }
 
 async function getLLMAssistedEvents(): Promise<CalendarEvent[] | null> {
-  const userInput = await promptUser("What would you like on your schedule today? ");
+  const userInput = await promptUser(
+    'What would you like on your schedule today? ',
+  );
   const events = await processUserInput(userInput);
   const confirmed = await confirmEvents(events);
-  
+
   if (confirmed) {
     return events;
   } else {
-    logger.info("Events not confirmed. Please try again or use manual input.");
+    logger.info('Events not confirmed. Please try again or use manual input.');
     return null;
   }
 }
 
 async function getManualEvents(): Promise<CalendarEvent[]> {
-  return [
-
-  ];
+  return [];
 }
 
 async function main() {
   try {
     logger.info('Starting the CalDAV script');
 
-    const choice = await promptUser("Do you want to use LLM-assisted event creation? (yes/no) ");
-    
+    const choice = await promptUser(
+      'Do you want to use LLM-assisted event creation? (yes/no) ',
+    );
+
     let events: CalendarEvent[];
     if (choice.toLowerCase() === 'yes') {
-      events = await getLLMAssistedEvents() || await getManualEvents();
+      events = (await getLLMAssistedEvents()) || (await getManualEvents());
     } else {
       events = await getManualEvents();
     }
