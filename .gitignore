@@ -38,3 +38,4 @@ dist/
 
 # ics files (if you don't want to include them in the repo)
 *.ics
+package-lock.json

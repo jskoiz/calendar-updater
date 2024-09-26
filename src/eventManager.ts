@@ -42,7 +42,8 @@ export class EventManager {
     for (const event of validEvents) {
       const icalCal = createICalEvent(event);
       const icsData = icalCal.toString();
-      const filename = `${event.start.replace(/[:.-]/g, '')}-${event.summary.replace(/\s+/g, '-')}.ics`;
+      const startString = this.ensureDateTime(event.start).toISO() || '';
+      const filename = `${startString.replace(/[:.-]/g, '')}-${event.summary.replace(/\s+/g, '-')}.ics`;
 
       try {
         await this.caldavClient.addEventToCalendar(icsData, filename);
@@ -54,6 +55,10 @@ export class EventManager {
     await this.generateIcsFile(validEvents);
   }
 
+  private ensureDateTime(date: string | Date): DateTime {
+    return date instanceof Date ? DateTime.fromJSDate(date) : DateTime.fromISO(date);
+  }
+
   async generateIcsFile(events: CalendarEvent[]): Promise<void> {
     const cal = ical({
       prodId: '//Your Company//Your Product//EN',
@@ -61,8 +66,8 @@ export class EventManager {
     });
 
     for (const event of events) {
-      const startTime = DateTime.fromISO(event.start).setZone(config.timezone);
-      const endTime = DateTime.fromISO(event.end).setZone(config.timezone);
+      const startTime = this.ensureDateTime(event.start).setZone(config.timezone);
+      const endTime = this.ensureDateTime(event.end).setZone(config.timezone);
 
       cal.createEvent({
         start: startTime.toJSDate(),

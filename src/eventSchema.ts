@@ -2,8 +2,8 @@ import Joi from 'joi';
 
 export interface CalendarEvent {
   summary: string;
-  start: string;
-  end: string;
+  start: string | Date;
+  end: string | Date;
 }
 
 export const eventSchema = Joi.object({

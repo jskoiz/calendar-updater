@@ -73,7 +73,8 @@ export class CalDavClient {
       });
 
       logger.info(`Server response status: ${response.status}`);
-      logger.debug(`Server response: ${JSON.stringify(await response.text())}`);
+      const responseText = await response.text();
+      logger.debug(`Server response: ${responseText}`);
 
       if (response.ok) {
         logger.info(`Event successfully added with UID: ${eventUid}`);

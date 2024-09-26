@@ -1,34 +1,53 @@
 import { EventManager } from './eventManager';
 import { logger } from './logger';
+import { processUserInput, confirmEvents } from './llmHelper';
+import readline from 'readline';
+import { CalendarEvent } from './eventSchema';
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+async function promptUser(question: string): Promise<string> {
+  return new Promise((resolve) => {
+    rl.question(question, (answer) => {
+      resolve(answer);
+    });
+  });
+}
+
+async function getLLMAssistedEvents(): Promise<CalendarEvent[] | null> {
+  const userInput = await promptUser("What would you like on your schedule today? ");
+  const events = await processUserInput(userInput);
+  const confirmed = await confirmEvents(events);
+  
+  if (confirmed) {
+    return events;
+  } else {
+    logger.info("Events not confirmed. Please try again or use manual input.");
+    return null;
+  }
+}
+
+async function getManualEvents(): Promise<CalendarEvent[]> {
+  return [
+
+  ];
+}
 
 async function main() {
   try {
     logger.info('Starting the CalDAV script');
-    logger.warn('This is a test warning message');
-    logger.error('This is a test error message');
 
-    const events = [
-      {
-        summary: 'Wake up, get ready, make lunch',
-        start: '2024-10-25T07:00:00',
-        end: '2024-10-25T07:30:00',
-      },
-      {
-        summary: 'Take Ava to school',
-        start: '2024-10-25T07:30:00',
-        end: '2024-10-25T08:00:00',
-      },
-      {
-        summary: 'Return home, breakfast for Mila',
-        start: '2024-10-25T08:00:00',
-        end: '2024-10-25T08:30:00',
-      },
-      {
-        summary: 'Make schedule',
-        start: '2024-10-25T08:30:00',
-        end: '2024-10-25T09:00:00',
-      },
-    ];
+    const choice = await promptUser("Do you want to use LLM-assisted event creation? (yes/no) ");
+    
+    let events: CalendarEvent[];
+    if (choice.toLowerCase() === 'yes') {
+      events = await getLLMAssistedEvents() || await getManualEvents();
+    } else {
+      events = await getManualEvents();
+    }
 
     logger.info(`Processing ${events.length} events`);
 
@@ -42,6 +61,8 @@ async function main() {
     if (error.stack) {
       logger.error(error.stack);
     }
+  } finally {
+    rl.close();
   }
 }
 
