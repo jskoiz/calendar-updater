@@ -1,0 +1,48 @@
+Formatted Log Output:
+
+[2024-09-26 07:26:55.085Z] INFO: Initializing CalDAV client... (service: caldav-service)
+
+[DEPRECATION WARNING] The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+[2024-09-26 07:26:56.242Z] INFO: CalDAV client initialized. (service: caldav-service)
+
+[2024-09-26 07:26:56.242Z] INFO: Fetching calendars... (service: caldav-service)
+
+[2024-09-26 07:26:57.686Z] INFO: Fetched 4 calendars. (service: caldav-service)
+
+[2024-09-26 07:26:57.709Z] INFO: Selected calendar: AVMIL (service: caldav-service)
+
+[2024-09-26 07:26:57.710Z] INFO: Attempting to add event with filename: 20241025T070000-Wake-up,-get-ready,-make-lunch.ics (service: caldav-service)
+
+[2024-09-26 07:26:58.194Z] INFO: Server response status: 201 (service: caldav-service)
+
+[2024-09-26 07:26:58.195Z] INFO: Event successfully added with UID: 2fedd3d4-3e5e-4c3b-a92e-46158994faa8 (service: caldav-service)
+
+[2024-09-26 07:26:58.196Z] INFO: Selected calendar: AVMIL (service: caldav-service)
+
+[2024-09-26 07:26:58.196Z] INFO: Attempting to add event with filename: 20241025T073000-Take-Ava-to-school.ics (service: caldav-service)
+
+[2024-09-26 07:26:58.748Z] INFO: Server response status: 201 (service: caldav-service)
+
+[2024-09-26 07:26:58.748Z] INFO: Event successfully added with UID: c8f31df8-a2eb-459d-8973-af0cb9143d6e (service: caldav-service)
+
+[2024-09-26 07:26:58.750Z] INFO: Selected calendar: AVMIL (service: caldav-service)
+
+[2024-09-26 07:26:58.750Z] INFO: Attempting to add event with filename: 20241025T080000-Return-home,-breakfast-for-Mila.ics (service: caldav-service)
+
+[2024-09-26 07:26:59.433Z] INFO: Server response status: 201 (service: caldav-service)
+
+[2024-09-26 07:26:59.433Z] INFO: Event successfully added with UID: aff4d1af-3fc9-4633-beea-6e8ec05018b3 (service: caldav-service)
+
+[2024-09-26 07:26:59.434Z] INFO: Selected calendar: AVMIL (service: caldav-service)
+
+[2024-09-26 07:26:59.434Z] INFO: Attempting to add event with filename: 20241025T083000-Make-schedule.ics (service: caldav-service)
+
+[2024-09-26 07:26:59.995Z] INFO: Server response status: 201 (service: caldav-service)
+
+[2024-09-26 07:26:59.995Z] INFO: Event successfully added with UID: 85eb8452-bba3-427a-84ff-3e162a6f0461 (service: caldav-service)
+
+[2024-09-26 07:27:00.000Z] INFO: ICS file generated successfully: /Users/jk/Desktop/caldav/events.ics (service: caldav-service)
+
+[2024-09-26 07:27:00.000Z] INFO: Script execution completed. (service: caldav-service)
